@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_course_lesson_form" model="ir.ui.view">
+        <field name="name">course_lesson.form</field>
+        <field name="model">course.lesson</field>
+        <field name="arch" type="xml">
+            <form string="Lessons" duplicate="0">
+                <sheet>
+                    <div class="oe_edit_only">
+                        <label for="name" class="oe_inline" />
+                    </div>
+                    <h1>
+                        <field name="name" class="oe_inline" />
+                    </h1>
+                    <group>
+                        <field name="room_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_course_lesson_tree">
+        <field name="name">course.lesson.tree</field>
+        <field name="model">course.lesson</field>
+        <field name="arch" type="xml">
+            <tree string="Lessons">
+                <field name="name" />
+                <field name="room_id" />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="course_lesson_action">
+        <field name="name">Lessons</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">course.lesson</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="view_course_room_form" model="ir.ui.view">
+        <field name="name">course_room.form</field>
+        <field name="model">course.room</field>
+        <field name="arch" type="xml">
+            <form string="Rooms" duplicate="0">
+                <sheet>
+                    <div class="oe_edit_only">
+                        <label for="name" class="oe_inline" />
+                    </div>
+                    <h1>
+                        <field name="name" class="oe_inline" />
+                    </h1>
+                    <group>
+                        <field name="course_id" />
+                        <field name="capacity" />
+                        <field name="lesson_ids" widget="many2many_tags" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_course_lesson_tree">
+        <field name="name">course.room.tree</field>
+        <field name="model">course.room</field>
+        <field name="arch" type="xml">
+            <tree string="Rooms">
+                <field name="name" />
+                <field name="course_id" />
+                <field name="capacity" />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="course_room_action">
+        <field name="name">Rooms</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">course.room</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="view_course_course_form" model="ir.ui.view">
+        <field name="name">course_course.form</field>
+        <field name="model">course.course</field>
+        <field name="arch" type="xml">
+            <form string="Courses" duplicate="0">
+                <sheet>
+                    <div class="oe_edit_only">
+                        <label for="name" class="oe_inline" />
+                    </div>
+                    <h1>
+                        <field name="name" class="oe_inline" />
+                    </h1>
+                    <group>
+                        <field name="instructor_id" />
+                        <field name="room_id" />
+                        <field name="lesson_ids" widget="many2many_tags" />
+                        <field name="attendees_ids" />
+                        <field name="description" />
+                        <field name="from_date" />
+                        <field name="to_date" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_course_course_tree">
+        <field name="name">course.course.tree</field>
+        <field name="model">course.course</field>
+        <field name="arch" type="xml">
+            <tree string="Courses">
+                <field name="name" />
+                <field name="instructor_id" />
+            </tree>
+        </field>
+    </record>
+    <record id="course_kanban_view" model="ir.ui.view">
+        <field name="name">course.course.kanban</field>
+        <field name="model">course.course</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name" />
+                                </strong>
+                                <ul>
+                                    <li>
+                                        <strong>
+                                            Instructor:
+                                            <field name="instructor_id" />
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="course_course_action">
+        <field name="name">Course</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">course.course</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <!-- <record id="action_courses_instructed" model="ir.actions.act_window">
+        <field name="name">Instructed</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('instructor_id', '=', active_id)]</field>
+    </record>
+    <record id="action_courses_attended" model="ir.actions.act_window">
+        <field name="name">Attended</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('attendees_ids', '=', active_id)]</field>
+    </record> -->
+
+    <record id="res_partner_course_inherit" model="ir.ui.view">
+        <field name="name">res.partner.course.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_show_courses_instructed" type="object" class="oe_stat_button" icon="fa-book">
+                    <div class="o_stat_info">
+                        <field name="instructed_courses_count" class="o_stat_value"/>
+                        <span class="o_stat_text" attrs="{'invisible': [('instructed_courses_count', '&lt;', 2)]}"> Courses Instructed</span>
+                        <span class="o_stat_text" attrs="{'invisible': [('instructed_courses_count', '&gt;', 1)]}"> Course Instructed</span>
+                    </div>
+                </button>
+                <button name="action_show_courses_attended" type="object" class="oe_stat_button" icon="fa-book">
+                    <div class="o_stat_info">
+                        <field name="attended_courses_count" class="o_stat_value"/>
+                        <span class="o_stat_text" attrs="{'invisible': [('attended_courses_count', '&lt;', 2)]}"> Courses Attended</span>
+                        <span class="o_stat_text" attrs="{'invisible': [('attended_courses_count', '&gt;', 1)]}"> Course Attended</span>
+                    </div>
+                </button>
+            </xpath>            
+            <xpath expr="//page[@name='sales_purchases']" position="before">
+                <page name="courses" string="Courses">
+                    <group>
+                        <field name="course_instructor_ids" widget="many2many_tags" reaonly="True"/>
+                        <field name="course_ids" widget="many2many_tags" reaonly="True"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>    
+    <menuitem id="menu_courses" name="Courses" sequence="100" groups="base.group_user" />
+    <menuitem id="menu_course_courses" name="Courses" action="course_course_action" parent="menu_courses" sequence="10" />
+    <menuitem id="menu_course_room" name="Rooms" action="course_room_action" parent="menu_courses" sequence="20" />
+    <menuitem id="menu_course_lesson" name="Lessons" action="course_lesson_action" parent="menu_courses" sequence="30" />
+</odoo>
